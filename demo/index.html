@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <title></title>
+
+	<link rel="stylesheet" type="text/css" href="jquery.fancybox.css" />
+	<link rel="stylesheet" href="themes/base/jquery.ui.all.css">
+    
+	<script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="jquery.fancybox.js"></script>
+    <script type="text/javascript" src="jquery.cookie.js"></script>
+	
+    <script src="ui/jquery.ui.core.js"></script>
+	<script src="ui/jquery.ui.widget.js"></script>
+	<script src="ui/jquery.ui.position.js"></script>
+	<script src="ui/jquery.ui.button.js"></script>
+	<script src="ui/jquery.ui.dialog.js"></script>
+	<script src="ui/jquery.ui.effect.js"></script>
+	<script src="ui/jquery.ui.effect-fade.js"></script>
+    
+	<script>
+	
+	// ////////////////////////////////////////////////////////////////////////////////
+	// jQuery dialog cookie 
+	// Build date: 29th April 2013
+	// Version: 1.0
+	// ////////////////////////////////////////////////////////////////////////////////
+	
+	// Set the cookie so if the user selects either YES, I would like to participate or, 
+	// If the user selects NO Thanks, Don't ask me again, we create a cookie that will expire in 365 days.
+	// That will ensure the fancy box does not display again unless the user clears their browser cookies.
+	
+    // call fancybox
+    function openFancy(){ 
+   		setTimeout( function() {$('#autoStart').trigger('click'); }, 1000); // [200000] = show after 20 seconds
+    } 
+	
+    // create cookie on button click
+    function dontShow(){
+		$.fancybox.close(); // optional
+		$.cookie('visited', 'yes', { expires: 365 }); // expiration in 365 days
+    }
+	
+    $(document).ready(function() {
+		var visited = $.cookie('visited'); // create cookie 'visited' with no value
+		if (visited == 'yes') {
+		return false;
+    } 
+	
+	else {
+    	openFancy(); // cookie has no value so launch fancybox on page load
+    }
+		
+   		$('#autoStart').fancybox(); // anchor tag with an id so it triggers the dialog modal on page load
+		
+    });
+
+	// Set the cookie so the user will see the fancy box the next time the user visits the site.
+	// The cookie is set to expire in 24 hours. This will ensure the fancy box will display again after 24 hours.
+	
+    // call fancybox
+    function openFancy(){ 
+   		setTimeout( function() {$('#autoStart').trigger('click'); }, 1000); // [200000] = show after 20 seconds
+    } 
+	
+    // create cookie on button click
+    function maybeLater(){
+		$.fancybox.close(); // optional
+		$.cookie('visited', 'yes', { expires: 1 }); // expiration in 1 day
+    }
+	
+    $(document).ready(function() {
+		var visited = $.cookie('visited'); // create cookie 'visited' with no value
+		if (visited == 'yes') {
+		return false;
+    } 
+	
+	else {
+    	openFancy(); // cookie has no value so launch fancybox on page load
+    }
+	
+   		$('#autoStart').fancybox();
+		
+    });
+	
+	$(function() {
+		$( "#dialog" ).dialog({
+			autoOpen: false,
+			height: 600,
+			 width: 600,
+			 modal: true,
+			 buttons: {
+					Submit: function() {
+					$( this ).dialog( "close" );
+					}
+			 },
+			 
+			show: {
+				effect: "fade",
+				duration: 1000
+			},
+			hide: {
+				effect: "fade",
+				duration: 1000
+			}
+		});
+
+		$( "#opener" ).click(function() {
+			$( "#dialog" ).dialog( "open" );
+		});
+	});
+
+    </script>
+	
+    <style>
+	body {
+	font-family: arial;
+	}
+
+	:focus {
+	outline: 0;
+	outline-color: transparent;
+	outline-style: none;
+	}
+	
+	#autoFancybox {
+	width: 480px;	
+	}
+	
+	.fancybox-inner {
+	padding: 10px 10px 40px 10px;
+	}
+	
+	h1, p {
+	text-align: center;
+	}
+	
+	p {
+	font-size: 13px;	
+	}
+	
+	ul {
+	margin: 0;
+	padding: 0 35px;	
+	}
+	li {
+	font-size: 13px;	
+	margin-bottom: 5px;
+	}
+	
+	ul.links {
+	margin: 0 auto;
+	margin-top: 30px; 
+	padding: 0; 
+	width: 90%;
+	}
+	
+	ul.links li {
+	background: #efefef; 
+	font-size: 14px;
+	list-style: none; 
+	margin-bottom: 2px;
+	padding: 15px 10px;
+	text-align: center;
+	}
+	
+	ul.links li a {
+	color: #666;
+	text-decoration: none;
+	}
+	
+	#dialog form {
+	padding: 15px;
+	}
+	
+	#dialog form label, #dialog form input {
+	float: left;
+	width: 100%;
+	}
+	
+	#dialog form select {
+	float: left;
+	width: 20%;
+	}
+	
+	#dialog form label {
+	font-size: 13px;
+	font-weight: bold;
+	margin-bottom: 10px;
+	}
+	
+	#dialog form input, #dialog form select {
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	margin-bottom: 10px;
+	padding: 10px 0;
+	}
+	
+	.ui-dialog-buttonset button {
+	background: #efefef !important;
+	float: left;
+	margin-top: -10px !important;
+	padding: 10px !important;
+	}
+	
+	small {
+	color: #666;
+	font-style: italic;
+	font-size: 12px;
+	}
+	</style>
+</head>
+
+<body>
+
+<div style="display: none;">
+
+    <!--The following triggers the Fancy Box on PageLoad-->
+    <a id="autoStart" style="display:none" href="#autoFancybox"></a>
+    <!--/The following triggers the Fancy Box on PageLoad-->
+    
+    <!--The Fancy Box Contents-->
+    <div id="autoFancybox">
+        <div>
+            
+            <h1>Setting cookies with jQuery</h1>
+            
+            <p>This a demo of setting cookies with jQuery.</p>
+            <p>The three settings are:</p>
+            <ul>
+                <li>create a cookie that will expire in 365 days but it will then open a sample survey inside of jQuery UI modal.</li> 
+                <li>create a cookie that will expire in 24 hours but will NOT open a sample survey inside of jQuery UI modal but as the cookies is set for 24 hours, will ask again.</li>
+                <li>create a cookie that will expire in 365 days but it will NOT open the sample survey.</li>
+            </ul>
+            
+            <ul class="links">
+            	<li><a id="noShow" href="javascript:dontShow()"><span id="opener"><b>Yes, I would like to take the survey</b></span></a><br />
+                <small>This link will create a cookie that will expire in 365 days but it will also take you a sample survey inside of jQuery UI modal.</small></li>
+            	
+                <li><a id="noShow" href="javascript:dontShow()"><b>No thanks, and please don't ask me again</b></a><br />
+                <small>This link will create a cookie that will expire in 24 hours.</small></li>
+                
+                <li><a id="maybeLater" href="javascript:maybeLater()"><b>Not now, maybe later thanks</b></a><br />
+                <small>This link will create a cookie that will expire in 365 days but it will NOT open the sample survey.</small></li>
+            </ul>
+
+        </div>
+    </div>
+    <!--/The Fancy Box Contents-->
+    
+</div>
+
+<div id="dialog" title="Basic dialog">
+	<form>
+    	<h3>Sample Form</h3>
+        
+    	<label>Loreum ipsum doalr sit amet consecutatar?</label>
+        <input type="text" />
+        
+        <label>Loreum ipsum doalr sit amet consecutatar?</label>
+        <input type="text" />
+        
+        <label>Loreum ipsum doalr sit amet consecutatar?</label>
+        <select>
+        	<option>Yes</option>
+          	<option>No</option>
+        </select>
+		
+    </form>
+</div>
+
+</body> 
+</html>
